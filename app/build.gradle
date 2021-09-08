@@ -1,6 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+
+    //hilt
+    id 'dagger.hilt.android.plugin'
+
 }
 
 android {
@@ -62,4 +67,27 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+
+
+    //retrosheet
+    implementation 'com.github.theapache64:retrosheet:2.0.0-alpha05'
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    //integration with the Jetpack
+    implementation "androidx.hilt:hilt-navigation-fragment:$hilt_integration_version"
+
+    //retrofit
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //network monitoring
+    debugImplementation "com.github.chuckerteam.chucker:library:3.4.0"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.4.0"
+
+    //flower
+    implementation "io.github.hadiyarajesh:flower:2.0.0"
+
 }
