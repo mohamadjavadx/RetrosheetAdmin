@@ -1,22 +1,12 @@
 package com.example.retrosheetadmin.model
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Image(
-    @SerializedName("created_at")
-    @Expose
-    val createdAt: String,
-
-    @SerializedName("id")
-    @Expose
+    val createdAt: String? = null,
     val id: String,
-
-    @SerializedName("title")
-    @Expose
+    val isArchived: Boolean,
     val title: String,
-
-    @SerializedName("link")
-    @Expose
     val link: String,
 )

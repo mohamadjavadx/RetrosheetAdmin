@@ -3,12 +3,13 @@ package com.example.retrosheetadmin.di
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.example.retrosheetadmin.*
 import com.example.retrosheetadmin.datasource.network.RetrosheetApiService
+import com.example.retrosheetadmin.util.*
 import com.github.theapache64.retrosheet.RetrosheetInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.hadiyarajesh.flower.calladpater.FlowCallAdapterFactory
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +18,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -27,13 +29,19 @@ object NetworkModule {
     @Provides
     fun provideGsonBuilder(): Gson =
         GsonBuilder()
-            .excludeFieldsWithoutExposeAnnotation()
+//            .excludeFieldsWithoutExposeAnnotation()
             .create()
+
+    @Singleton
+    @Provides
+    fun provideMoshiBuilder(): Moshi =
+        Moshi.Builder().build()
 
     @Singleton
     @Provides
     fun provideRetrofit(
         gson: Gson,
+        moshi:Moshi,
         @ApplicationContext context: Context,
     ): Retrofit.Builder {
 
@@ -42,13 +50,17 @@ object NetworkModule {
             // To Read
             .addSheet(
                 sheetName = IMAGE_SHEET,
-                IMAGE_SHEET_A, IMAGE_SHEET_B, IMAGE_SHEET_C, IMAGE_SHEET_D // columns in same order
+                IMAGE_SHEET_A,
+                IMAGE_SHEET_B,
+                IMAGE_SHEET_C,
+                IMAGE_SHEET_D,
+                IMAGE_SHEET_E
             )
             // To write
-//            .addForm(
-//                ADD_NOTE_ENDPOINT,
-//                "https://docs.google.com/forms/d/e/1FAIpQLSdmavg6P4eZTmIu-0M7xF_z-qDCHdpGebX8MGL43HSGAXcd3w/viewform?usp=sf_link" // form link
-//            )
+            .addForm(
+                ADD_IMAGE_ENDPOINT,
+                ADD_IMAGE_FORM
+            )
             .build()
 
 
@@ -66,7 +78,7 @@ object NetworkModule {
             .client(okHttpClient)
             .baseUrl(BASE_URL)
             .addCallAdapterFactory(FlowCallAdapterFactory())
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
 
     }
 

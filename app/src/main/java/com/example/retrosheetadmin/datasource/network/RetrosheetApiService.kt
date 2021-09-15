@@ -1,19 +1,25 @@
 package com.example.retrosheetadmin.datasource.network
 
-import com.example.retrosheetadmin.IMAGE_SHEET
+import com.example.retrosheetadmin.datasource.network.requests.ImageRequest
+import com.example.retrosheetadmin.util.IMAGE_SHEET
 import com.example.retrosheetadmin.model.Image
+import com.example.retrosheetadmin.util.ADD_IMAGE_ENDPOINT
 import com.github.theapache64.retrosheet.core.Read
+import com.github.theapache64.retrosheet.core.Write
 import com.hadiyarajesh.flower.ApiResponse
 import kotlinx.coroutines.flow.Flow
+import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.POST
 
 interface RetrosheetApiService {
 
-    @Read("SELECT * limit :limit")
+    @Read("SELECT *")
     @GET(IMAGE_SHEET)
-    fun getImages(
-        @Query("limit") limit: Int
-    ): Flow<ApiResponse<List<Image>?>>
+    fun getImages(): Flow<ApiResponse<List<Image>>>
+
+    @Write
+    @POST(ADD_IMAGE_ENDPOINT)
+    fun postImage(@Body imageRequest: ImageRequest): Flow<ApiResponse<Unit>>
 
 }

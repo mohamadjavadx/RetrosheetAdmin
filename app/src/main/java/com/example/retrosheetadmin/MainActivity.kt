@@ -9,21 +9,27 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
+import com.example.retrosheetadmin.datasource.network.ImageRepository
 import com.example.retrosheetadmin.datasource.network.RetrosheetApiService
+import com.example.retrosheetadmin.model.Image
 import com.example.retrosheetadmin.ui.theme.RetrosheetAdminTheme
+import com.example.retrosheetadmin.util.log
+import com.example.retrosheetadmin.util.logSimple
 import com.hadiyarajesh.flower.networkResource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
+import java.util.*
 import javax.inject.Inject
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
 
     @Inject
-    lateinit var retrosheetApiService: RetrosheetApiService
+    lateinit var imageRepository: ImageRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,20 +44,10 @@ class MainActivity : ComponentActivity() {
 
 
         lifecycleScope.launchWhenCreated {
-
-            val flow = networkResource(
-                fetchFromRemote = {
-                    retrosheetApiService.getImages(5)
-                }
-            ).flowOn(Dispatchers.IO)
-
-            flow.collect {
+            imageRepository.getAllImages().collect {
                 it.log()
             }
-
         }
-
-
 
     }
 }

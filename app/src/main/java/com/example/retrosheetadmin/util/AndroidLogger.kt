@@ -1,4 +1,4 @@
-package com.example.retrosheetadmin
+package com.example.retrosheetadmin.util
 
 import android.util.Log
 import androidx.lifecycle.Lifecycle
