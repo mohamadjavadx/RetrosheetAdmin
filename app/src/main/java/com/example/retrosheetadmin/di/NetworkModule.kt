@@ -6,8 +6,6 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.retrosheetadmin.datasource.network.RetrosheetApiService
 import com.example.retrosheetadmin.util.*
 import com.github.theapache64.retrosheet.RetrosheetInterceptor
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.hadiyarajesh.flower.calladpater.FlowCallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -17,7 +15,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
@@ -27,27 +24,19 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideGsonBuilder(): Gson =
-        GsonBuilder()
-//            .excludeFieldsWithoutExposeAnnotation()
-            .create()
-
-    @Singleton
-    @Provides
     fun provideMoshiBuilder(): Moshi =
         Moshi.Builder().build()
+
 
     @Singleton
     @Provides
     fun provideRetrofit(
-        gson: Gson,
-        moshi:Moshi,
+        moshi: Moshi,
         @ApplicationContext context: Context,
     ): Retrofit.Builder {
 
         val retrosheetInterceptor = RetrosheetInterceptor.Builder()
             .setLogging(false)
-            // To Read
             .addSheet(
                 sheetName = IMAGE_SHEET,
                 IMAGE_SHEET_A,
@@ -56,7 +45,6 @@ object NetworkModule {
                 IMAGE_SHEET_D,
                 IMAGE_SHEET_E
             )
-            // To write
             .addForm(
                 ADD_IMAGE_ENDPOINT,
                 ADD_IMAGE_FORM

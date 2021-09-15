@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 
-    //hilt
+    // Hilt
     id 'dagger.hilt.android.plugin'
 
 }
@@ -64,35 +64,31 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.3.1'
 
 
-    //retrosheet
-    implementation 'com.github.theapache64:retrosheet:2.0.0-alpha05'
-
-    //hilt
+    // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
-    //integration with the Jetpack
+    // Integration with the Jetpack
     implementation "androidx.hilt:hilt-navigation-fragment:$hilt_integration_version"
 
-    //retrofit
+
+    //Retrosheet
+    implementation 'com.github.theapache64:retrosheet:2.0.0-alpha05'
+
+    // Retrofit
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
 
-    // Moshi Kotlin Codegen : Moshi Kotlin Codegen
+    // Moshi
+    implementation 'com.squareup.moshi:moshi:1.12.0'
+    // Moshi Kotlin Codegen
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.12.0'
 
-    // Moshi : Moshi
-    implementation 'com.squareup.moshi:moshi:1.12.0'
-
-    // Converter: Scalars : A Retrofit Converter for Java's scalar value types.
-    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
-
-    //network monitoring
+    // Network Monitoring
     debugImplementation "com.github.chuckerteam.chucker:library:3.4.0"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.4.0"
 
-    //flower
+    // Flower
     implementation "io.github.hadiyarajesh:flower:2.0.0"
 
 }
