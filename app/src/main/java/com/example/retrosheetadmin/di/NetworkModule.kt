@@ -38,7 +38,7 @@ object NetworkModule {
         val retrosheetInterceptor = RetrosheetInterceptor.Builder()
             .setLogging(false)
             .addSheet(
-                sheetName = IMAGE_SHEET,
+                sheetName = IMAGE_SHEET_NAME,
                 IMAGE_SHEET_A,
                 IMAGE_SHEET_B,
                 IMAGE_SHEET_C,
@@ -46,8 +46,8 @@ object NetworkModule {
                 IMAGE_SHEET_E
             )
             .addForm(
-                ADD_IMAGE_ENDPOINT,
-                ADD_IMAGE_FORM
+                IMAGE_ENDPOINT,
+                IMAGE_FORM
             )
             .build()
 

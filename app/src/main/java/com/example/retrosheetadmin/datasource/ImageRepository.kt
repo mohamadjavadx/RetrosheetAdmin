@@ -1,5 +1,6 @@
-package com.example.retrosheetadmin.datasource.network
+package com.example.retrosheetadmin.datasource
 
+import com.example.retrosheetadmin.datasource.network.RetrosheetApiService
 import com.example.retrosheetadmin.datasource.network.requests.ImageRequest
 import com.example.retrosheetadmin.model.Image
 import com.hadiyarajesh.flower.Resource

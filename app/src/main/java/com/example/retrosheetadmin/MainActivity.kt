@@ -3,26 +3,21 @@ package com.example.retrosheetadmin
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import com.example.retrosheetadmin.datasource.network.ImageRepository
-import com.example.retrosheetadmin.datasource.network.RetrosheetApiService
-import com.example.retrosheetadmin.model.Image
+import com.example.retrosheetadmin.datasource.ImageRepository
+import com.example.retrosheetadmin.ui.imagelist.ImageListComposable
+import com.example.retrosheetadmin.ui.imagelist.ImageListEvents
+import com.example.retrosheetadmin.ui.imagelist.ImageListViewModel
 import com.example.retrosheetadmin.ui.theme.RetrosheetAdminTheme
 import com.example.retrosheetadmin.util.log
-import com.example.retrosheetadmin.util.logSimple
-import com.hadiyarajesh.flower.networkResource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
-import java.util.*
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -37,7 +32,28 @@ class MainActivity : ComponentActivity() {
             RetrosheetAdminTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+
+                    Column {
+
+
+                        val viewModel: ImageListViewModel by viewModels<ImageListViewModel>()
+
+                        if (viewModel.state.value.isLoading)
+                            CircularProgressIndicator()
+
+                        if (!viewModel.state.value.isLoading)
+                            Button(onClick = {
+                                viewModel.onTriggerEvent(ImageListEvents.LoadImages)
+                            }) {
+                                Text(text = "refresh")
+                            }
+
+                        if (!viewModel.state.value.isLoading)
+                            ImageListComposable(images = viewModel.state.value.imageList) {
+                                viewModel.onTriggerEvent(ImageListEvents.DeleteImage(it))
+                            }
+
+                    }
                 }
             }
         }
