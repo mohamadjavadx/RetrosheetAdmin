@@ -91,4 +91,9 @@ dependencies {
     // Flower
     implementation "io.github.hadiyarajesh:flower:2.0.0"
 
+
+    //ui
+
+    implementation "com.google.accompanist:accompanist-swiperefresh:0.18.0"
+
 }

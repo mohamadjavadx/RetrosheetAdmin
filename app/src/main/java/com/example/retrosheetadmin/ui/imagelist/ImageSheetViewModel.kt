@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ImageListViewModel
+class ImageSheetViewModel
 @Inject
 constructor(
     private val imageRepository: ImageRepository,
@@ -21,14 +21,7 @@ constructor(
 
 
     val state: MutableState<ImageListState> =
-        mutableStateOf(
-            ImageListState(
-                isLoading = false,
-                imageList = null,
-                errorMessage = null
-            )
-        )
-
+        mutableStateOf(ImageListState.Non)
 
     init {
         loadImages()
@@ -45,25 +38,24 @@ constructor(
     private fun loadImages() {
         viewModelScope.launch {
             imageRepository.getAllImages().collect { dataState ->
-                state.value = state.value.copy(
-                    isLoading = dataState.status == Resource.Status.LOADING,
-                    imageList = dataState.data,
-                    errorMessage = dataState.message
-                )
+                state.value = when (dataState.status) {
+                    Resource.Status.SUCCESS -> ImageListState.Success(dataState.data!!)
+                    Resource.Status.ERROR -> ImageListState.Error(dataState.message!!)
+                    Resource.Status.LOADING -> ImageListState.Loading
+                }
             }
         }
     }
 
     private fun deleteImage(image: Image) {
         viewModelScope.launch {
-            state.value = state.value.copy(isLoading = true)
             imageRepository.deleteImage(image).collect { dataState ->
-                state.value = state.value.copy(
-                    isLoading = dataState.status == Resource.Status.LOADING,
-                    errorMessage = dataState.message
-                )
-                if (dataState.status == Resource.Status.SUCCESS) {
-                    loadImages()
+                state.value = when (dataState.status) {
+                    Resource.Status.SUCCESS -> ImageListState.Non.also {
+                        loadImages()
+                    }
+                    Resource.Status.ERROR -> ImageListState.Error(dataState.message!!)
+                    Resource.Status.LOADING -> ImageListState.Loading
                 }
             }
         }
@@ -71,14 +63,13 @@ constructor(
 
     private fun editImage(image: Image) {
         viewModelScope.launch {
-            state.value = state.value.copy(isLoading = true)
             imageRepository.editImage(image).collect { dataState ->
-                state.value = state.value.copy(
-                    isLoading = dataState.status == Resource.Status.LOADING,
-                    errorMessage = dataState.message
-                )
-                if (dataState.status == Resource.Status.SUCCESS) {
-                    loadImages()
+                state.value = when (dataState.status) {
+                    Resource.Status.SUCCESS -> ImageListState.Non.also {
+                        loadImages()
+                    }
+                    Resource.Status.ERROR -> ImageListState.Error(dataState.message!!)
+                    Resource.Status.LOADING -> ImageListState.Loading
                 }
             }
         }
