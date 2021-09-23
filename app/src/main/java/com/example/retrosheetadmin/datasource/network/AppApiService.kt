@@ -12,7 +12,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface ImageApiService {
+interface AppApiService {
 
     @Read("SELECT *")
     @GET(IMAGE_SHEET_NAME)

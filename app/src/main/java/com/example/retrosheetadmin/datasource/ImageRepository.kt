@@ -1,6 +1,6 @@
 package com.example.retrosheetadmin.datasource
 
-import com.example.retrosheetadmin.datasource.network.ImageApiService
+import com.example.retrosheetadmin.datasource.network.AppApiService
 import com.example.retrosheetadmin.datasource.network.requests.ImageRequest
 import com.example.retrosheetadmin.model.Image
 import com.example.retrosheetadmin.util.removeInvalidItems
@@ -17,14 +17,14 @@ import javax.inject.Singleton
 class ImageRepository
 @Inject
 constructor(
-    private val imageApiService: ImageApiService
+    private val apiService: AppApiService
 ) {
 
 
     fun getAllImages(): Flow<Resource<List<Image>>> =
         networkResource(
             fetchFromRemote = {
-                imageApiService.getAllImages()
+                apiService.getAllImages()
             }
         ).map {
             it.copy(data = it.data?.removeInvalidItems())
@@ -34,7 +34,7 @@ constructor(
     fun deleteImage(image: Image) =
         networkResource(
             fetchFromRemote = {
-                imageApiService.postImage(
+                apiService.postImage(
                     ImageRequest(
                         id = image.id,
                         isArchived = true.toString(),
@@ -49,7 +49,7 @@ constructor(
     fun updateImage(image: Image) =
         networkResource(
             fetchFromRemote = {
-                imageApiService.postImage(
+                apiService.postImage(
                     ImageRequest(
                         id = image.id,
                         isArchived = image.isArchived.toString(),

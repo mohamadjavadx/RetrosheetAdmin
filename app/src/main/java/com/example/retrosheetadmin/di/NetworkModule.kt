@@ -3,7 +3,7 @@ package com.example.retrosheetadmin.di
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.example.retrosheetadmin.datasource.network.ImageApiService
+import com.example.retrosheetadmin.datasource.network.AppApiService
 import com.example.retrosheetadmin.util.*
 import com.github.theapache64.retrosheet.RetrosheetInterceptor
 import com.hadiyarajesh.flower.calladpater.FlowCallAdapterFactory
@@ -74,12 +74,12 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrosheetApiService(
+    fun provideAppApiService(
         retrofit: Retrofit.Builder
-    ): ImageApiService {
+    ): AppApiService {
         return retrofit
             .build()
-            .create(ImageApiService::class.java)
+            .create(AppApiService::class.java)
     }
 
 }
