@@ -1,9 +1,9 @@
 package com.example.retrosheetadmin.datasource.network
 
 import com.example.retrosheetadmin.datasource.network.requests.ImageRequest
-import com.example.retrosheetadmin.util.IMAGE_SHEET_NAME
 import com.example.retrosheetadmin.model.Image
 import com.example.retrosheetadmin.util.IMAGE_ENDPOINT
+import com.example.retrosheetadmin.util.IMAGE_SHEET_NAME
 import com.github.theapache64.retrosheet.core.Read
 import com.github.theapache64.retrosheet.core.Write
 import com.hadiyarajesh.flower.ApiResponse
@@ -12,11 +12,11 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface RetrosheetApiService {
+interface ImageApiService {
 
     @Read("SELECT *")
     @GET(IMAGE_SHEET_NAME)
-    fun getImages(): Flow<ApiResponse<List<Image>>>
+    fun getAllImages(): Flow<ApiResponse<List<Image>>>
 
     @Write
     @POST(IMAGE_ENDPOINT)

@@ -4,9 +4,9 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Image(
-    val createdAt: String,
-    val id: String,
-    val isArchived: Boolean,
+    override val createdAt: String,
+    override val id: String,
+    override val isArchived: Boolean,
     val title: String,
     val link: String,
-)
+) : CommonItem

@@ -30,7 +30,7 @@ constructor(
     fun onTriggerEvent(event: ImageListEvents) {
         when (event) {
             is ImageListEvents.DeleteImage -> deleteImage(event.image)
-            is ImageListEvents.EditImage -> editImage(event.image)
+            is ImageListEvents.EditImage -> updateImage(event.image)
             is ImageListEvents.LoadImages -> loadImages()
         }
     }
@@ -61,9 +61,9 @@ constructor(
         }
     }
 
-    private fun editImage(image: Image) {
+    private fun updateImage(image: Image) {
         viewModelScope.launch {
-            imageRepository.editImage(image).collect { dataState ->
+            imageRepository.updateImage(image).collect { dataState ->
                 state.value = when (dataState.status) {
                     Resource.Status.SUCCESS -> ImageListState.Non.also {
                         loadImages()
