@@ -1,6 +1,7 @@
 package com.example.retrosheetadmin.ui.imagelist
 
 import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -14,73 +15,19 @@ import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Top
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.retrosheetadmin.model.Image
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.compose.ui.platform.LocalContext
-
-
-@Composable
-fun ImageCardComposable(
-    image: Image,
-    onClickDeleteButton: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
-    ) {
-
-
-        Column {
-
-
-            Row {
-
-                Column(modifier = Modifier.padding(8.dp)) {
-                    Text(text = "title:")
-
-                    Text(text = "link:")
-
-                }
-
-                Column(modifier = Modifier.padding(8.dp)) {
-                    Text(text = image.title)
-
-                    Text(
-                        text = image.link,
-                        color = Color.Blue,
-                        modifier = Modifier.clickable {
-
-                        }
-                    )
-
-                }
-
-            }
-
-            Button(onClick = { onClickDeleteButton.invoke() }) {
-                Text(text = "delete")
-            }
-
-        }
-
-    }
-}
-
 
 @ExperimentalAnimationApi
 @Composable
 fun ImageCardComposable(
     image: Image,
-    index: Int,
     isExpanded: Boolean,
     onClickMore: (isExpanded: Boolean) -> Unit,
     onClickDelete: () -> Unit,
     onClickUpdate: () -> Unit,
 ) {
-
 
     Card(
         modifier = Modifier
@@ -180,4 +127,5 @@ fun ImageCardComposable(
         }
 
     }
+
 }

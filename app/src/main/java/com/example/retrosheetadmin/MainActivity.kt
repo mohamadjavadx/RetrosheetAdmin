@@ -78,7 +78,6 @@ class MainActivity : ComponentActivity() {
                                 Spacer(modifier = Modifier.height(8.dp))
                                 ImageCardComposable(
                                     image = item,
-                                    index = index,
                                     isExpanded = expandedItem == index,
                                     onClickMore = { isExpanded ->
                                         expandedItem = if (isExpanded) index else -1
