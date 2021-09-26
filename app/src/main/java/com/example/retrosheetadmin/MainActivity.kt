@@ -21,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.retrosheetadmin.datasource.ImageRepository
 import com.example.retrosheetadmin.model.Image
 import com.example.retrosheetadmin.ui.imagelist.ImageCardComposable
+import com.example.retrosheetadmin.ui.imagelist.ImageListEvents
 import com.example.retrosheetadmin.ui.imagelist.ImageListState
 import com.example.retrosheetadmin.ui.imagelist.ImageSheetViewModel
 import com.example.retrosheetadmin.ui.theme.RetrosheetAdminTheme
@@ -64,7 +65,6 @@ class MainActivity : ComponentActivity() {
                         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
                         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
                     )
-                    var expandedItem by remember { mutableStateOf(-1) }
 
                     if (state is ImageListState.Success) {
                         val imageList: List<Image> = arrayListOf<Image>().apply {
@@ -78,11 +78,13 @@ class MainActivity : ComponentActivity() {
                                 Spacer(modifier = Modifier.height(8.dp))
                                 ImageCardComposable(
                                     image = item,
-                                    isExpanded = expandedItem == index,
+                                    isExpanded = state.expandedItemIndex == index,
                                     onClickMore = { isExpanded ->
-                                        expandedItem = if (isExpanded) index else -1
+                                        state.expandedItemIndex = if (isExpanded) index else -1
                                     },
-                                    onClickDelete = {},
+                                    onClickDelete = {
+                                        viewModel.onTriggerEvent(ImageListEvents.DeleteImage(item))
+                                    },
                                     onClickUpdate = {}
                                 )
                             }

@@ -84,7 +84,7 @@ fun ImageCardComposable(
                         Icon(
                             imageVector = if (it) Icons.Rounded.Close else Icons.Rounded.MoreVert,
                             contentDescription = "",
-                            tint = MaterialTheme.colors.secondary
+//                            tint = MaterialTheme.colors.secondary
                         )
                     }
                 }

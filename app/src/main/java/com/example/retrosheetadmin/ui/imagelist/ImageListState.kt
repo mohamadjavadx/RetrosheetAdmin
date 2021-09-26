@@ -11,7 +11,10 @@ import com.example.retrosheetadmin.model.Image
 
 sealed class ImageListState {
     object Loading : ImageListState()
-    data class Success(val imageList: List<Image>) : ImageListState()
+    data class Success(
+        val imageList: List<Image>,
+        val expandedItemIndex: Int,
+    ) : ImageListState()
     data class Error(val errorMessage: String) : ImageListState()
     object Non : ImageListState()
 }
