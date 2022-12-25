@@ -1,11 +1,12 @@
 package com.example.retrosheetadmin.util
 
 
+//https://docs.google.com/spreadsheets/d/1-awNsiF4oIoINcSuimMSuKXdbJOZm0dbJ7nad2Ghyv4/edit?usp=sharing
 const val BASE_URL =
-    "https://docs.google.com/spreadsheets/d/1N7pcWJGkDV6tb8XZfARrLdRy20WdzNqaLEg6CYpdWZ4/"
+    "https://docs.google.com/spreadsheets/d/1-awNsiF4oIoINcSuimMSuKXdbJOZm0dbJ7nad2Ghyv4/"
 
 
-const val IMAGE_SHEET_NAME = "images"
+const val ExpensesSheetName = "Expenses"
 const val IMAGE_SHEET_A = "createdAt"
 const val IMAGE_SHEET_B = "id"
 const val IMAGE_SHEET_C = "isArchived"

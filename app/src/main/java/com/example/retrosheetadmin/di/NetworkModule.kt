@@ -39,7 +39,7 @@ object NetworkModule {
         val retrosheetInterceptor = RetrosheetInterceptor.Builder()
             .setLogging(false)
             .addSheet(
-                sheetName = IMAGE_SHEET_NAME,
+                sheetName = ExpensesSheetName,
                 IMAGE_SHEET_A,
                 IMAGE_SHEET_B,
                 IMAGE_SHEET_C,

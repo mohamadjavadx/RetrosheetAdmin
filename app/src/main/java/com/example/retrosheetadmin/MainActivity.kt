@@ -101,7 +101,7 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launchWhenCreated {
             imageRepository.getAllImages().collect {
-                it.log()
+
             }
         }
 

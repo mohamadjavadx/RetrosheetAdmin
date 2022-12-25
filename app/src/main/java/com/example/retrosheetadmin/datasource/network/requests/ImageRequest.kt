@@ -6,14 +6,14 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class ImageRequest(
     @Json(name = "id")
-    override val id: String,
+    val id: String,
 
     @Json(name = "isArchived")
-    override val isArchived: String,
+    val isArchived: String,
 
     @Json(name = "title")
     val title: String,
 
     @Json(name = "link")
     val link: String,
-) : CommonRequest
+)
